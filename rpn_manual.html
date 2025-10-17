@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title>rpn_manual.nim</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🐳</text></svg>">
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="nimib 0.3.12" name="generator">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.min.css">
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/pietroppeter/nimib/assets/atom-one-light.css'>
+    <script src="https://cdn.jsdelivr.net/gh/pietroppeter/nimib@main/assets/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+  <style>
+.nb-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nb-small {
+  font-size: 0.8rem;
+}
+button.nb-small {
+  float: right;
+  padding: 2px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+section#source {
+  display:none
+}
+pre > code {
+  font-size: 1.2em;
+}
+.nb-output {
+  line-height: 1.15;
+}
+figure {
+  margin: 2rem 0;
+}
+figcaption {
+  text-align: center;
+}
+  
+</style>
+  
+</head>
+<body>
+<header>
+<div class="nb-box">
+  <span><a href=".">🏡</a></span>
+  <span><code>rpn_manual.nim</code></span>
+  <span></span>
+</div>
+<hr>
+</header><main>
+<p>#RPN 计算器使用说明书</p>
+<p>##1. 安装和编译指南</p>
+<p>###安装系统</p>
+<p>Linux/Unix 系统</p>
+<ul>
+<li>GCC 编译器</li>
+<li>Nim 语言环境（用于生成文档）</li>
+</ul>
+<p>###编译</p>
+<p>编译 C++ 程序
+g++ rpn_calc.cpp -o rpn_calc -lm</p>
+<p>###运行程序
+./rpn_calc</p>
+<p>##2.基本使用示例</p>
+<p>编译 C++ 程序
+g++ rpn_calc.cpp -o rpn_calc -lm</p>
+<p>运行程序
+./rpn_calc</p>
+<p>输入表达式:操作数1 操作数2 操作符(例, '5 5 +'), 或 'q' 退出.</p>
+<p>##3.所有支持的操作说明</p>
+<p>这是一个基于 C++ 实现的逆波兰表示法（Reverse Polish Notation）计算器，支持基础四则运算、高级数学函数(平方根、幂运算及斐波那契数列等)和错误处理(处理除零错误 处理输入格式错误 处理栈空错误)。
+四则运算支持</p>
+<p>加法 (+)
+减法 (-)
+乘法 (*)
+除法 (/)</p>
+<p>栈操作功能</p>
+<p>支持数字输入（整数和浮点数）
+支持基本的栈操作：清空、显示当前栈
+支持连续运行操作: 将输入的rpn语法字符串的最终计算结果输出</p>
+<p>错误处理</p>
+<p>处理除零错误
+处理输入格式错误
+处理栈空错误</p>
+<p>##4.错误代码和异常说明</p>
+<p>每次测试栈空错误前要先清空栈</p>
+<blockquote>
+<p>clear        # 清空栈
+5 +          # 测试栈空错误
+错误：栈空，需要两个操作数</p>
+</blockquote>
+<blockquote>
+<p>clear        # 清空栈</p>
+<ul>
+<li>
+<pre><code>       # 测试完全空栈
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<p>错误：栈空，需要两个操作数</p>
+<p>##5.示例输入输出
+输入表达式 (例, '5 5 +'), 或 'q' 退出.</p>
+<blockquote>
+<p>1 2 + 3 + 7 7 * +
+结果: 55</p>
+</blockquote>
+</main>
+<footer>
+<div class="nb-box">
+  <span><span class="nb-small">made with <a href="https://pietroppeter.github.io/nimib/">nimib 🐳</a></span></span>
+  <span></span>
+  <span><button class="nb-small" id="show" onclick="toggleSourceDisplay()">Show Source</button></span>
+</div>
+</footer>
+<section id="source">
+<pre><code class="nohighlight nim hljs"><span class="hljs-keyword">import</span> nimib
+
+nbInit
+
+nbText: <span class="hljs-string">&quot;&quot;&quot;
+ #RPN 计算器使用说明书
+
+##1. 安装和编译指南
+
+###安装系统
+
+Linux/Unix 系统
+- GCC 编译器
+- Nim 语言环境（用于生成文档）
+
+###编译
+
+编译 C++ 程序
+g++ rpn_calc.cpp -o rpn_calc -lm
+
+###运行程序
+./rpn_calc
+
+##2.基本使用示例
+
+编译 C++ 程序
+g++ rpn_calc.cpp -o rpn_calc -lm
+
+运行程序
+./rpn_calc
+
+输入表达式:操作数1 操作数2 操作符(例, '5 5 +'), 或 'q' 退出.
+
+##3.所有支持的操作说明
+
+这是一个基于 C++ 实现的逆波兰表示法（Reverse Polish Notation）计算器，支持基础四则运算、高级数学函数(平方根、幂运算及斐波那契数列等)和错误处理(处理除零错误 处理输入格式错误 处理栈空错误)。
+四则运算支持
+
+加法 (+)
+减法 (-)
+乘法 (*)
+除法 (/)
+
+栈操作功能
+
+支持数字输入（整数和浮点数）
+支持基本的栈操作：清空、显示当前栈
+支持连续运行操作: 将输入的rpn语法字符串的最终计算结果输出
+
+错误处理
+
+处理除零错误
+处理输入格式错误
+处理栈空错误
+
+
+##4.错误代码和异常说明
+
+每次测试栈空错误前要先清空栈
+
+&gt; clear        # 清空栈
+&gt; 5 +          # 测试栈空错误
+错误：栈空，需要两个操作数
+
+&gt; clear        # 清空栈  
+&gt; +            # 测试完全空栈
+错误：栈空，需要两个操作数
+
+##5.示例输入输出
+输入表达式 (例, '5 5 +'), 或 'q' 退出.
+&gt; 1 2 + 3 + 7 7 * +
+结果: 55
+&quot;&quot;&quot;</span>
+nbSave <span class="hljs-comment"># ----------------------------- END ------------------------------------</span>
+
+</code></pre>
+</section><script>
+function toggleSourceDisplay() {
+  var btn = document.getElementById("show")
+  var source = document.getElementById("source");
+  if (btn.innerHTML=="Show Source") {
+    btn.innerHTML = "Hide Source";
+    source.style.display = "block";
+  } else {
+    btn.innerHTML = "Show Source";
+    source.style.display = "none";
+  }
+}
+</script></body>
+</html>
